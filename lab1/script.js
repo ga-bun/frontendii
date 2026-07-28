@@ -15,7 +15,7 @@ const display = document.querySelector('#display')
 
 const teclado = document.querySelector('.keys')
 
-let entradaAtual = '0'
+let entradaAtual = 0
 let valorAnterior = null
 let operador = null
 let resultado
@@ -52,11 +52,3 @@ teclado.addEventListener('click', (evento) => {
 const inserirDigito = digito => {
     display.textContent += digito
 }
-
-
-// Vamos pensar no problema
-// variáveis: 
-    // entrada atual
-    // operador
-    // valor anterior -> pode ser um acumulador?
-    // resultado
