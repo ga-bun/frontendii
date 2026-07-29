@@ -27,6 +27,7 @@ teclado.addEventListener('click', (evento) => {
     // Vendo e usando a propriedade dataset
     const botao = evento.target
     if(!botao) return // por segurança
+
     const digito = botao.dataset.digit
     const operacao = botao.dataset.op
     const acao = botao.dataset.action
@@ -38,17 +39,43 @@ teclado.addEventListener('click', (evento) => {
         return // Para nao cair nos outros ifs -> pode usar else -> object calistenics
     }
     if (operacao) {
-        //registrarOperacao(operacao)
+        registrarOperacao(operacao)
         return
     }
     if (acao) {
-        //executarAcao(acao)
+        executarAcao(acao)
         return
     }
-
 })
 
 // Função seta
 const inserirDigito = digito => {
     display.textContent += digito
+}
+const registrarOperacao = operação => {
+    entradaAtual = parseFloat(display.textContent)
+    operador = operação 
+}
+const executarAcao = acao => {
+    // depende da ação
+    switch (acao) {
+        case 'clear':
+            display.textContent = 0
+            entradaAtual = 0
+            break
+        case 'backspace':
+            display.textContent = display.textContent.pop() // pop altera o array original, exemplo pra nao alterar é tirar com o slice (0, -1) -> pega do 0 até o penultimo
+            break
+        case 'sign':
+            display.textContent = -display.textContent
+            break
+        case 'equals':
+            executaOperacao()
+            break
+    }
+    
+}
+
+const executaOperacao = () => {
+
 }
