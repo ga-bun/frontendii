@@ -111,6 +111,22 @@ const inverterSinal = () => {
 }
 
 const executaOperacao = (operacao) => {
-    //switch (operacao)
+    if(operacao === 'raiz' || operacao === 'porcento') {
+        calcularUnaria(operacao) // tem somente um numero
+        return
+    }
+
+    calcularBinaria(operacao) // tem dois numeros envolvidos na operacao
  
+}
+
+const calcularUnaria = (operacao) => {
+
+}
+
+const calcularBinaria = (op) => {
+    valorAnterior = Number(entradaAtual) // int, double, float etc -> engloba tudo
+    operador = op
+    entradaAtual = '0'
+    
 }
