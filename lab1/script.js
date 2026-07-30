@@ -77,10 +77,10 @@ const executarAcao = acao => {
             limparTudo()
             break
         case 'backspace':
-            entradaAtual = entradaAtual.slice(0, -1)  
+            apagaUltimoDigito()
             break
         case 'sign':
-            entradaAtual = -entradaAtual
+            inverterSinal()
             break
         case 'equals':
             executaOperacao()
@@ -96,7 +96,21 @@ const limparTudo = () => {
     resultado = null
 }
 
+const apagaUltimoDigito = () => {
+    if(entradaAtual.length === 1){
+        entradaAtual = '0'
+        return
+    }
+    entradaAtual = entradaAtual.slice(0, -1) // O primeiro é inclusivo, o segundo nao é se coloca um número negativo, começa a contar de trás pra frente (tamanho -1)
 
-const executaOperacao = () => {
+    // entradaAtual.length > 1 ? entradaAtual.slice(0,-1) : '0'
+}
+
+const inverterSinal = () => {
+    entradaAtual = -entradaAtual
+}
+
+const executaOperacao = (operacao) => {
+    //switch (operacao)
  
 }
