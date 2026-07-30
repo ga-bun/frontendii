@@ -3,24 +3,17 @@
 
 // Pegar pelo id -> pois pegamos exatamente o objeto que queremos e não outro parecido etc....
 const display = document.querySelector('#display')
-//alert(display.textContent)
-
-// JEITO ESTRANHO: fazer para cada botão....
-// Adicionar um escutador de eventos em botão/teclado
-// const botao7 = document.querySelector('[data-digit="7"]')
-
-// botao7.addEventListener('click', () => {
-//     display.textContent += botao7.textContent // pegando o conteúdo de botao7 e coloca em  display
-// })
+//alert(display.textContent) // para teste
 
 const teclado = document.querySelector('.keys')
 
-let entradaAtual = 0
+// Variáveis para as operações/ações da calculadora
+let entradaAtual = '0'
 let valorAnterior = null
 let operador = null
 let resultado
 
-// evento é um argumento que a função seta irá receber no clique
+// Evento é um argumento que a função seta irá receber no clique
 teclado.addEventListener('click', (evento) => {
     //display.textContent += evento.target.textContent // pega o texto de ONDE o evento aconteceu, se foi numa key numerica ou simbolo etc
     
@@ -32,7 +25,7 @@ teclado.addEventListener('click', (evento) => {
     const operacao = botao.dataset.op
     const acao = botao.dataset.action
 
-    //alert(`${digito} - ${operacao} - ${acao}`)
+    //alert(`${digito} - ${operacao} - ${acao}`) // para teste
 
     if (digito) {
         inserirDigito(digito)
@@ -50,21 +43,26 @@ teclado.addEventListener('click', (evento) => {
 
 // Função seta
 const inserirDigito = digito => {
+    // Caso o display esteja mostrando zero (0), ao digitar um número, remove o zero
+    if(display.textContent === '0'){
+        display.textContent = display.textContent.slice(0, -1)
+    }
     display.textContent += digito
 }
+
 const registrarOperacao = operação => {
     entradaAtual = parseFloat(display.textContent)
-    operador = operação 
+    operador = operação
 }
+
 const executarAcao = acao => {
     // depende da ação
     switch (acao) {
         case 'clear':
-            display.textContent = 0
-            entradaAtual = 0
+            limpaDisplay()
             break
         case 'backspace':
-            display.textContent = display.textContent.pop() // pop altera o array original, exemplo pra nao alterar é tirar com o slice (0, -1) -> pega do 0 até o penultimo
+            display.textContent = display.textContent.slice(0, -1)
             break
         case 'sign':
             display.textContent = -display.textContent
@@ -73,9 +71,13 @@ const executarAcao = acao => {
             executaOperacao()
             break
     }
-    
 }
 
 const executaOperacao = () => {
+ 
+}
 
+const limpaDisplay = () => {
+    entradaAtual = 0
+    display.textContent = entradaAtual
 }
