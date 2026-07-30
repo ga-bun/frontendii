@@ -11,7 +11,7 @@ const teclado = document.querySelector('.keys')
 let entradaAtual = '0'
 let valorAnterior = null
 let operador = null
-let resultado
+let resultado = null
 
 // Evento é um argumento que a função seta irá receber no clique
 teclado.addEventListener('click', (evento) => {
@@ -74,7 +74,7 @@ const executarAcao = acao => {
     // Depende da ação
     switch (acao) {
         case 'clear':
-            entradaAtual = '0'
+            limparTudo()
             break
         case 'backspace':
             entradaAtual = entradaAtual.slice(0, -1)  
@@ -87,6 +87,15 @@ const executarAcao = acao => {
             break
     }
 }
+
+// Este clear limpa todas as coisas... não somente a entrada atual
+const limparTudo = () => {
+    entradaAtual = '0'
+    valorAnterior = null
+    operador = null
+    resultado = null
+}
+
 
 const executaOperacao = () => {
  
