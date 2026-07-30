@@ -21,14 +21,16 @@ teclado.addEventListener('click', (evento) => {
     const botao = evento.target
     if(!botao) return // por segurança
 
-    const digito = botao.dataset.digit
-    const operacao = botao.dataset.op
-    const acao = botao.dataset.action
+    // Categorias de botões
+    const digito = botao.dataset.digit // valor do botao digito
+    const operacao = botao.dataset.op // valor do botao operacao
+    const acao = botao.dataset.action // valor do botao action
 
     //alert(`${digito} - ${operacao} - ${acao}`) // para teste
 
     if (digito) {
         inserirDigito(digito)
+        atualizarDisplay(entradaAtual)
         return // Para nao cair nos outros ifs -> pode usar else -> object calistenics
     }
     if (operacao) {
@@ -37,17 +39,30 @@ teclado.addEventListener('click', (evento) => {
     }
     if (acao) {
         executarAcao(acao)
+        atualizarDisplay(entradaAtual)
         return
     }
 })
 
 // Função seta
 const inserirDigito = digito => {
+    
+    // Se já tiver um ponto na entrada atual, ele não faz nada
+    if (digito === '.' && entradaAtual.includes('.')) return
+    
     // Caso o display esteja mostrando zero (0), ao digitar um número, remove o zero
-    if(display.textContent === '0'){
-        display.textContent = display.textContent.slice(0, -1)
+    if(entradaAtual === '0' && digito !== '.'){
+        entradaAtual = digito
+        return
     }
-    display.textContent += digito
+
+    // Atualizar entradaAtual com o número digitado: concatena no entradaAtual
+    entradaAtual += digito
+}
+
+// Função que só atualiza o display com o valor recebido
+const atualizarDisplay = (entrada) => {
+    display.textContent = entrada
 }
 
 const registrarOperacao = operação => {
@@ -56,16 +71,16 @@ const registrarOperacao = operação => {
 }
 
 const executarAcao = acao => {
-    // depende da ação
+    // Depende da ação
     switch (acao) {
         case 'clear':
-            limpaDisplay()
+            entradaAtual = '0'
             break
         case 'backspace':
-            display.textContent = display.textContent.slice(0, -1)
+            entradaAtual = entradaAtual.slice(0, -1)  
             break
         case 'sign':
-            display.textContent = -display.textContent
+            entradaAtual = -entradaAtual
             break
         case 'equals':
             executaOperacao()
@@ -75,9 +90,4 @@ const executarAcao = acao => {
 
 const executaOperacao = () => {
  
-}
-
-const limpaDisplay = () => {
-    entradaAtual = 0
-    display.textContent = entradaAtual
 }
