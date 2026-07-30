@@ -121,6 +121,7 @@ const executaOperacao = (operacao) => {
 }
 
 const calcularUnaria = (operacao) => {
+    operacao === 'raiz' ? entradaAtual = Math.sqrt(entradaAtual): entradaAtual = entradaAtual/100
 
 }
 
@@ -128,5 +129,5 @@ const calcularBinaria = (op) => {
     valorAnterior = Number(entradaAtual) // int, double, float etc -> engloba tudo
     operador = op
     entradaAtual = '0'
-    
+
 }
