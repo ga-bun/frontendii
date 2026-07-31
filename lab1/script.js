@@ -85,6 +85,7 @@ const executarAcao = acao => {
             break
         case 'equals':
             executaOperacao(operador)
+            entradaAtual = String(resultado)
             break
     }
 }
@@ -112,22 +113,25 @@ const inverterSinal = () => {
 }
 
 const executaOperacao = (operacao) => {
+    
     entradaAtual = Number(entradaAtual)
+    alert(`Valor anterior: ${valorAnterior} - Entrada atual: ${entradaAtual} - Operador: ${operador}`) // para teste
     if(operacao === 'raiz' || operacao === 'porcento') {
         calcularUnaria(operacao) // tem somente um numero
         return
     }
+
     calcularBinaria(operacao) // tem dois numeros envolvidos na operacao
 }
 
 const calcularUnaria = (operacao) => {
     if (operacao === 'raiz') {
-        entradaAtual = Math.sqrt(entradaAtual)
+        resultado = Math.sqrt(valorAnterior)
         return
     }
 
     if (operacao === 'porcento') {
-        entradaAtual = entradaAtual / 100
+        resultado = valorAnterior / 100
         return
     }
 }
@@ -148,5 +152,4 @@ const calcularBinaria = (op) => {
             resultado = valorAnterior / entradaAtual
             break
     }
-    entradaAtual = String(resultado)
 }
