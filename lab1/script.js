@@ -66,8 +66,9 @@ const atualizarDisplay = (entrada) => {
 }
 
 const registrarOperacao = operação => {
-    entradaAtual = parseFloat(display.textContent)
     operador = operação
+    valorAnterior = Number(entradaAtual)
+    entradaAtual = '0'
 }
 
 const executarAcao = acao => {
@@ -83,7 +84,7 @@ const executarAcao = acao => {
             inverterSinal()
             break
         case 'equals':
-            executaOperacao()
+            executaOperacao(operador)
             break
     }
 }
@@ -111,23 +112,41 @@ const inverterSinal = () => {
 }
 
 const executaOperacao = (operacao) => {
+    entradaAtual = Number(entradaAtual)
     if(operacao === 'raiz' || operacao === 'porcento') {
         calcularUnaria(operacao) // tem somente um numero
         return
     }
-
     calcularBinaria(operacao) // tem dois numeros envolvidos na operacao
- 
 }
 
 const calcularUnaria = (operacao) => {
-    operacao === 'raiz' ? entradaAtual = Math.sqrt(entradaAtual): entradaAtual = entradaAtual/100
+    if (operacao === 'raiz') {
+        entradaAtual = Math.sqrt(entradaAtual)
+        return
+    }
 
+    if (operacao === 'porcento') {
+        entradaAtual = entradaAtual / 100
+        return
+    }
 }
 
 const calcularBinaria = (op) => {
-    valorAnterior = Number(entradaAtual) // int, double, float etc -> engloba tudo
     operador = op
-    entradaAtual = '0'
-
+    switch (operador) {
+        case 'adicao':
+            resultado = valorAnterior + entradaAtual
+            break
+        case 'subtracao':
+            resultado = valorAnterior - entradaAtual
+            break
+        case 'multiplicacao':
+            resultado = valorAnterior * entradaAtual
+            break
+        case 'divisao':
+            resultado = valorAnterior / entradaAtual
+            break
+    }
+    entradaAtual = String(resultado)
 }
